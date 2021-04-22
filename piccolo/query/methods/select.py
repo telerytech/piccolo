@@ -1,21 +1,16 @@
 from __future__ import annotations
-from collections import OrderedDict
+
 import typing as t
+from collections import OrderedDict
 
 from piccolo.columns import Column, Selectable
 from piccolo.columns.readable import Readable
 from piccolo.engine.base import Batch
 from piccolo.query.base import Query
-from piccolo.query.mixins import (
-    ColumnsDelegate,
-    DistinctDelegate,
-    GroupByDelegate,
-    LimitDelegate,
-    OffsetDelegate,
-    OrderByDelegate,
-    OutputDelegate,
-    WhereDelegate,
-)
+from piccolo.query.mixins import (ColumnsDelegate, DistinctDelegate,
+                                  GroupByDelegate, LimitDelegate,
+                                  OffsetDelegate, OrderByDelegate,
+                                  OutputDelegate, WhereDelegate)
 from piccolo.querystring import QueryString
 
 if t.TYPE_CHECKING:  # pragma: no cover

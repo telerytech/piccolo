@@ -1,8 +1,9 @@
 from __future__ import annotations
+
 import datetime
+import typing as t
 from dataclasses import dataclass
 from string import Formatter
-import typing as t
 
 
 @dataclass

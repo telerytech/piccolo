@@ -1,9 +1,10 @@
 from __future__ import annotations
+
 import typing as t
 
 from piccolo.query.base import Query
-from piccolo.querystring import QueryString
 from piccolo.query.methods.create_index import CreateIndex
+from piccolo.querystring import QueryString
 
 if t.TYPE_CHECKING:  # pragma: no cover
     from piccolo.table import Table

@@ -1,6 +1,7 @@
 from __future__ import annotations
-from dataclasses import dataclass
+
 import typing as t
+from dataclasses import dataclass
 
 from piccolo.custom_types import Combinable
 from piccolo.query.base import Query

@@ -1,6 +1,5 @@
 import re
 
-
 _camel_words = re.compile(r"([A-Z][a-z0-9_]+)")
 
 

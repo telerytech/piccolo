@@ -1,14 +1,15 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
-import typing as t
 
-from piccolo.columns import And, Column, Secret, Where, Or
+import typing as t
+from dataclasses import dataclass, field
+
+from piccolo.columns import And, Column, Or, Secret, Where
 from piccolo.custom_types import Combinable
 from piccolo.querystring import QueryString
 
 if t.TYPE_CHECKING:  # pragma: no cover
-    from piccolo.table import Table  # noqa
     from piccolo.columns.base import Selectable
+    from piccolo.table import Table  # noqa
 
 
 @dataclass

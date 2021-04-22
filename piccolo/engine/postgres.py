@@ -1,7 +1,8 @@
 from __future__ import annotations
+
 import contextvars
-from dataclasses import dataclass
 import typing as t
+from dataclasses import dataclass
 
 import asyncpg  # type: ignore
 from asyncpg.connection import Connection  # type: ignore

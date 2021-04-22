@@ -1,9 +1,10 @@
 from __future__ import annotations
-from abc import abstractmethod, ABCMeta
+
 import typing as t
+from abc import ABCMeta, abstractmethod
 
 from piccolo.utils.sync import run_sync
-from piccolo.utils.warnings import colored_warning, Level
+from piccolo.utils.warnings import Level, colored_warning
 
 if t.TYPE_CHECKING:  # pragma: no cover
     from piccolo.query.base import Query

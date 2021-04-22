@@ -1,6 +1,7 @@
 from __future__ import annotations
-from dataclasses import dataclass
+
 import typing as t
+from dataclasses import dataclass
 
 from piccolo.query.base import Query
 from piccolo.query.mixins import AddDelegate
@@ -30,6 +31,22 @@ class Insert(Query):
         for index, row in enumerate(results):
             self.add_delegate._add[index].id = row["id"]
 
+    async def run_pre_functions(self):
+        for function in self.table._meta.pre_insert:
+            function()
+
+    async def run_post_functions(self):
+        for function in self.table._meta.post_insert:
+            function()
+
+    def run_pre_functions_sync(self):
+        for function in self.table._meta.pre_insert:
+            function()
+
+    def run_post_functions_sync(self):
+        for function in self.table._meta.post_insert:
+            function()
+
     @property
     def sqlite_querystrings(self) -> t.Sequence[QueryString]:
         base = f"INSERT INTO {self.table._meta.tablename}"
@@ -47,9 +64,7 @@ class Insert(Query):
     @property
     def postgres_querystrings(self) -> t.Sequence[QueryString]:
         base = f"INSERT INTO {self.table._meta.tablename}"
-        columns = ",".join(
-            [f'"{i._meta.name}"' for i in self.table._meta.columns]
-        )
+        columns = ",".join([f'"{i._meta.name}"' for i in self.table._meta.columns])
         values = ",".join(["{}" for i in self.add_delegate._add])
         query = f"{base} ({columns}) VALUES {values} RETURNING id"
         return [

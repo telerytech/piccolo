@@ -1,17 +1,15 @@
 from __future__ import annotations
+
 import importlib
 import os
 import sys
 import typing as t
 
-from piccolo.conf.apps import (
-    MigrationModule,
-    Finder,
-)
-from piccolo.apps.migrations.auto.migration_manager import MigrationManager
 from piccolo.apps.migrations.auto.diffable_table import DiffableTable
+from piccolo.apps.migrations.auto.migration_manager import MigrationManager
 from piccolo.apps.migrations.auto.schema_snapshot import SchemaSnapshot
 from piccolo.apps.migrations.tables import Migration
+from piccolo.conf.apps import Finder, MigrationModule
 
 
 class BaseMigrationManager(Finder):

@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import typing as t
 
 from piccolo.custom_types import Combinable
@@ -38,6 +39,22 @@ class Delete(Query):
                 "Do you really want to delete all the data from "
                 f"{classname}? If so, use {classname}.delete(force=True)."
             )
+
+    async def run_pre_functions(self):
+        for function in self.table._meta.pre_delete:
+            function()
+
+    async def run_post_functions(self):
+        for function in self.table._meta.post_delete:
+            function()
+
+    def run_pre_functions_sync(self):
+        for function in self.table._meta.pre_delete:
+            function()
+
+    def run_post_functions_sync(self):
+        for function in self.table._meta.post_delete:
+            function()
 
     @property
     def querystrings(self) -> t.Sequence[QueryString]:

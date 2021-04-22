@@ -1,6 +1,5 @@
 from piccolo.apps.migrations.auto import MigrationManager
 
-
 ID = "2020-06-11T21:38:55"
 
 

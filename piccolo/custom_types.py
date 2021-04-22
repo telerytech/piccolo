@@ -1,9 +1,9 @@
 from __future__ import annotations
+
 import typing as t
 
-
 if t.TYPE_CHECKING:  # pragma: no cover
-    from piccolo.columns.combination import Where, WhereRaw, And, Or  # noqa
+    from piccolo.columns.combination import And, Or, Where, WhereRaw  # noqa
 
 
 Combinable = t.Union["Where", "WhereRaw", "And", "Or"]

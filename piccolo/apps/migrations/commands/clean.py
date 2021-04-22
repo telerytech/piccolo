@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import typing as t
 
 from piccolo.apps.migrations.commands.base import BaseMigrationManager

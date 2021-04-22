@@ -1,6 +1,7 @@
 from __future__ import annotations
-from abc import abstractmethod, abstractproperty, ABC
+
 import typing as t
+from abc import ABC, abstractmethod, abstractproperty
 
 
 class Default(ABC):

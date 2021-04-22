@@ -1,14 +1,15 @@
 from __future__ import annotations
+
 import contextvars
-from dataclasses import dataclass
 import datetime
-from decimal import Decimal
 import os
 import sqlite3
 import typing as t
 import uuid
+from dataclasses import dataclass
+from decimal import Decimal
 
-from aiosqlite import connect, Connection, Cursor
+from aiosqlite import Connection, Cursor, connect
 
 from piccolo.engine.base import Batch, Engine
 from piccolo.engine.exceptions import TransactionError

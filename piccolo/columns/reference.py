@@ -2,10 +2,11 @@
 Dataclasses for storing lazy references between ForeignKey columns and tables.
 """
 from __future__ import annotations
-from dataclasses import dataclass, field
+
 import importlib
 import inspect
 import typing as t
+from dataclasses import dataclass, field
 
 if t.TYPE_CHECKING:  # pragma: no cover
     from piccolo.columns.column_types import ForeignKey

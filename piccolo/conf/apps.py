@@ -1,17 +1,18 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
-from importlib import import_module
+
 import functools
 import inspect
 import itertools
 import os
 import traceback
-from types import ModuleType
 import typing as t
+from dataclasses import dataclass, field
+from importlib import import_module
+from types import ModuleType
 
 from piccolo.engine.base import Engine
 from piccolo.table import Table
-from piccolo.utils.warnings import colored_warning, Level
+from piccolo.utils.warnings import Level, colored_warning
 
 
 class MigrationModule(ModuleType):

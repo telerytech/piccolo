@@ -1,41 +1,25 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
+
 import inspect
 import itertools
 import typing as t
+from dataclasses import dataclass, field
 
-from piccolo.engine import Engine, engine_finder
-from piccolo.columns import (
-    Column,
-    Selectable,
-)
+from piccolo.columns import Column, Selectable
 from piccolo.columns.column_types import ForeignKey, PrimaryKey
-from piccolo.columns.readable import Readable
-from piccolo.columns.reference import (
-    LazyTableReference,
-    LAZY_COLUMN_REFERENCES,
-)
 from piccolo.columns.defaults.base import Default
 from piccolo.columns.indexes import IndexMethod
-from piccolo.query import (
-    Alter,
-    Count,
-    Create,
-    Delete,
-    DropIndex,
-    Exists,
-    Insert,
-    Objects,
-    Raw,
-    Select,
-    TableExists,
-    Update,
-)
-from piccolo.query.methods.indexes import Indexes
+from piccolo.columns.readable import Readable
+from piccolo.columns.reference import (LAZY_COLUMN_REFERENCES,
+                                       LazyTableReference)
+from piccolo.custom_types import Combinable
+from piccolo.engine import Engine, engine_finder
+from piccolo.query import (Alter, Count, Create, Delete, DropIndex, Exists,
+                           Insert, Objects, Raw, Select, TableExists, Update)
 from piccolo.query.methods.create_index import CreateIndex
+from piccolo.query.methods.indexes import Indexes
 from piccolo.querystring import QueryString, Unquoted
 from piccolo.utils import _camel_to_snake
-
 
 PROTECTED_TABLENAMES = ("user",)
 
@@ -54,6 +38,13 @@ class TableMeta:
     tags: t.List[str] = field(default_factory=list)
     help_text: t.Optional[str] = None
     _db: t.Optional[Engine] = None
+    pre_insert: t.List[t.Callable] = field(default_factory=list)
+    post_insert: t.List[t.Callable] = field(default_factory=list)
+    pre_update: t.List[t.Callable] = field(default_factory=list)
+    post_update: t.List[t.Callable] = field(default_factory=list)
+    pre_delete: t.List[t.Callable] = field(default_factory=list)
+    post_delete: t.List[t.Callable] = field(default_factory=list)
+
 
     # Records reverse foreign key relationships - i.e. when the current table
     # is the target of a foreign key. Used by external libraries such as
@@ -126,6 +117,12 @@ class Table(metaclass=TableMetaclass):
         db: t.Optional[Engine] = None,
         tags: t.List[str] = [],
         help_text: t.Optional[str] = None,
+        pre_insert: t.List[t.Callable] = [],
+        post_insert: t.List[t.Callable] = [],
+        pre_update: t.List[t.Callable] = [],
+        post_update: t.List[t.Callable] = [],
+        pre_delete: t.List[t.Callable] = [],
+        post_delete: t.List[t.Callable] = []
     ):
         """
         Automatically populate the _meta, which includes the tablename, and
@@ -134,16 +131,37 @@ class Table(metaclass=TableMetaclass):
         :param tablename:
             Specify a custom tablename. By default the classname is converted
             to snakecase.
+
         :param db:
             Manually specify an engine to use for connecting to the database.
             Useful when writing simple scripts. If not set, the engine is
             imported from piccolo_conf.py using ``engine_finder``.
+
         :param tags:
             Used for filtering, for example by ``table_finder``.
+
         :param help_text:
             A user friendly description of what the table is used for. It isn't
             used in the database, but will be used by tools such a Piccolo
             Admin for tooltips.
+       
+        :param pre_insert:
+            Used for defining list of functions to be run before insert
+
+        :param post_insert:
+            Used for defining list of functions to be run after insert
+
+        :param pre_update:
+            used for defining list of functions to be run before update
+
+        :param post_update:
+            used for defining list of functions to be run after update
+        
+        :param pre_delete:
+            used for defining list of functions to be run before delete
+
+        :param post_delete:
+            used for defining list of functions to be run after delete
 
         """
         tablename = tablename if tablename else _camel_to_snake(cls.__name__)
@@ -197,6 +215,12 @@ class Table(metaclass=TableMetaclass):
             tags=tags,
             help_text=help_text,
             _db=db,
+            pre_insert=pre_insert,
+            post_insert=post_insert,
+            pre_update=pre_update,
+            post_update=post_update,
+            pre_delete=pre_delete,
+            post_delete=post_delete
         )
 
         for foreign_key_column in foreign_key_columns:
@@ -280,6 +304,12 @@ class Table(metaclass=TableMetaclass):
             raise ValueError(f"Unrecognized columns - {unrecognised_list}")
 
     ###########################################################################
+
+    def get(self, *where: Combinable, **kwargs):
+        """
+         A proxy to an insert or update query.
+        """
+        return self.objects().where(*where, **kwargs).first()
 
     def save(self) -> t.Union[Insert, Update]:
         """

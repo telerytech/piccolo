@@ -3,7 +3,6 @@ import sys
 
 from targ import CLI  # type: ignore
 
-from piccolo.conf.apps import AppRegistry, Finder
 from piccolo.apps.app.piccolo_app import APP_CONFIG as app_config
 from piccolo.apps.asgi.piccolo_app import APP_CONFIG as asgi_config
 from piccolo.apps.meta.piccolo_app import APP_CONFIG as meta_config
@@ -13,7 +12,7 @@ from piccolo.apps.project.piccolo_app import APP_CONFIG as project_config
 from piccolo.apps.shell.piccolo_app import APP_CONFIG as shell_config
 from piccolo.apps.sql_shell.piccolo_app import APP_CONFIG as sql_shell_config
 from piccolo.apps.user.piccolo_app import APP_CONFIG as user_config
-
+from piccolo.conf.apps import AppRegistry, Finder
 
 DIAGNOSE_FLAG = "--diagnose"
 

@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import os
 import shutil
 import typing as t
@@ -6,7 +7,6 @@ import typing as t
 import black  # type: ignore
 import colorama  # type: ignore
 from jinja2 import Environment, FileSystemLoader
-
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "templates/starlette/")
 SERVERS = ["uvicorn", "Hypercorn"]

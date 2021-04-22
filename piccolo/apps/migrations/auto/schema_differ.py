@@ -1,14 +1,13 @@
 from __future__ import annotations
+
+import typing as t
 from copy import deepcopy
 from dataclasses import dataclass, field
-import typing as t
 
-from piccolo.apps.migrations.auto.diffable_table import (
-    DiffableTable,
-    TableDelta,
-)
+from piccolo.apps.migrations.auto.diffable_table import (DiffableTable,
+                                                         TableDelta)
+from piccolo.apps.migrations.auto.operations import RenameColumn, RenameTable
 from piccolo.apps.migrations.auto.serialisation import Import, serialise_params
-from piccolo.apps.migrations.auto.operations import RenameTable, RenameColumn
 from piccolo.utils.printing import get_fixed_length_string
 
 

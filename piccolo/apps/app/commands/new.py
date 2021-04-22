@@ -1,11 +1,11 @@
 from __future__ import annotations
+
 import os
 import sys
 import typing as t
 
 import black  # type: ignore
 import jinja2
-
 
 TEMPLATE_DIRECTORY = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "templates"

@@ -1,9 +1,10 @@
 from __future__ import annotations
+
 import typing as t
 
+from piccolo.columns import Timestamp, Varchar
 from piccolo.columns.defaults.timestamp import TimestampNow
 from piccolo.table import Table
-from piccolo.columns import Varchar, Timestamp
 
 
 class Migration(Table):

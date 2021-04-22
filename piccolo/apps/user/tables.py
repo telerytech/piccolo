@@ -2,11 +2,12 @@
 A User model, used for authentication.
 """
 from __future__ import annotations
+
 import hashlib
 import secrets
 import typing as t
 
-from piccolo.columns import Varchar, Boolean, Secret
+from piccolo.columns import Boolean, Secret, Varchar
 from piccolo.columns.readable import Readable
 from piccolo.table import Table
 from piccolo.utils.sync import run_sync

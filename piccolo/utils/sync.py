@@ -1,7 +1,8 @@
 from __future__ import annotations
+
 import asyncio
-from concurrent.futures import ThreadPoolExecutor
 import typing as t
+from concurrent.futures import ThreadPoolExecutor
 
 
 def run_sync(coroutine: t.Coroutine):

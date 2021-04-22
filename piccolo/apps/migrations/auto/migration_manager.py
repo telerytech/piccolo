@@ -1,18 +1,15 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
+
 import inspect
 import typing as t
+from dataclasses import dataclass, field
 
+from piccolo.apps.migrations.auto.diffable_table import DiffableTable
+from piccolo.apps.migrations.auto.operations import (AlterColumn, DropColumn,
+                                                     RenameColumn, RenameTable)
+from piccolo.apps.migrations.auto.serialisation import deserialise_params
 from piccolo.columns import Column, column_types
 from piccolo.engine import engine_finder
-from piccolo.apps.migrations.auto.diffable_table import DiffableTable
-from piccolo.apps.migrations.auto.operations import (
-    DropColumn,
-    RenameColumn,
-    AlterColumn,
-    RenameTable,
-)
-from piccolo.apps.migrations.auto.serialisation import deserialise_params
 from piccolo.table import Table
 
 

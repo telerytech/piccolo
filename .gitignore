@@ -1,5 +1,6 @@
 *.pyc
 .pytest_cache/
+.vim/
 .mypy_cache/
 .DS_Store
 docs/_build/

@@ -1,6 +1,7 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
+
 import typing as t
+from dataclasses import dataclass, field
 
 from piccolo.apps.migrations.auto.diffable_table import DiffableTable
 from piccolo.apps.migrations.auto.migration_manager import MigrationManager

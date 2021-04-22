@@ -6,25 +6,15 @@ import typing as t
 import uuid
 from datetime import date, datetime, time, timedelta
 
-from piccolo.columns.base import (
-    Column,
-    ForeignKeyMeta,
-    OnDelete,
-    OnUpdate,
-)
+from piccolo.columns.base import Column, ForeignKeyMeta, OnDelete, OnUpdate
 from piccolo.columns.defaults.date import DateArg, DateCustom, DateNow
 from piccolo.columns.defaults.interval import IntervalArg, IntervalCustom
 from piccolo.columns.defaults.time import TimeArg, TimeCustom, TimeNow
-from piccolo.columns.defaults.timestamp import (
-    TimestampArg,
-    TimestampCustom,
-    TimestampNow,
-)
-from piccolo.columns.defaults.timestamptz import (
-    TimestamptzArg,
-    TimestamptzCustom,
-    TimestamptzNow,
-)
+from piccolo.columns.defaults.timestamp import (TimestampArg, TimestampCustom,
+                                                TimestampNow)
+from piccolo.columns.defaults.timestamptz import (TimestamptzArg,
+                                                  TimestamptzCustom,
+                                                  TimestamptzNow)
 from piccolo.columns.defaults.uuid import UUID4, UUIDArg
 from piccolo.columns.operators.string import ConcatPostgres, ConcatSQLite
 from piccolo.columns.reference import LazyTableReference
@@ -32,8 +22,8 @@ from piccolo.querystring import QueryString, Unquoted
 from piccolo.utils.encoding import dump_json
 
 if t.TYPE_CHECKING:  # pragma: no cover
-    from piccolo.table import Table
     from piccolo.columns.base import ColumnMeta
+    from piccolo.table import Table
 
 
 ###############################################################################

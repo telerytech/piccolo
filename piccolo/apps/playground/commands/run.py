@@ -3,23 +3,15 @@ Populates a database with an example schema and data, and launches a shell
 for interacting with the data using Piccolo.
 """
 import datetime
-from decimal import Decimal
 import sys
 import uuid
+from decimal import Decimal
 
-from piccolo.table import Table
-from piccolo.columns import (
-    Boolean,
-    Varchar,
-    ForeignKey,
-    Integer,
-    Interval,
-    Numeric,
-    Timestamp,
-    UUID,
-)
+from piccolo.columns import (UUID, Boolean, ForeignKey, Integer, Interval,
+                             Numeric, Timestamp, Varchar)
+from piccolo.engine import PostgresEngine, SQLiteEngine
 from piccolo.engine.base import Engine
-from piccolo.engine import SQLiteEngine, PostgresEngine
+from piccolo.table import Table
 
 
 class Manager(Table):

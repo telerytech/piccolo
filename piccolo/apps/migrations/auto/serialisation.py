@@ -1,16 +1,18 @@
 from __future__ import annotations
-from copy import deepcopy
-from dataclasses import dataclass, field
+
 import datetime
 import decimal
-from enum import Enum
 import inspect
 import typing as t
 import uuid
+from copy import deepcopy
+from dataclasses import dataclass, field
+from enum import Enum
 
 from piccolo.columns.defaults.base import Default
 from piccolo.columns.reference import LazyTableReference
 from piccolo.table import Table
+
 from .serialisation_legacy import deserialise_legacy_params
 
 ###############################################################################
