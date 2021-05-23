@@ -124,6 +124,7 @@ class ColumnMeta:
     index_method: IndexMethod = IndexMethod.btree
     required: bool = False
     help_text: t.Optional[str] = None
+    choices: t.Optional[Enum] = None
 
     # Used for representing the table in migrations and the playground.
     params: t.Dict[str, t.Any] = field(default_factory=dict)
@@ -163,6 +164,20 @@ class ColumnMeta:
             return engine.engine_type
         else:
             raise ValueError("The table has no engine defined.")
+
+    @property
+    def get_choices(self) -> Optional(list):
+        """
+        Returns choices as a list of choice tuples (choice name, value. Custom fields should add type checking to keys as well
+        """
+        if isinstance(self.choices, t.Enum):
+            return [(choice.name.replace("_", " ").title(), choice.value) for choice in self.choices]
+        elif isinstance(self.choices, tuple):
+            return list(self.choices) # Guarantee a list
+        elif isinstance(self.choices, list):
+            return self.choices
+        else:
+            return None
 
     def get_full_name(self, just_alias=False) -> str:
         """
